@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Palette } from "../Palette";
 
 const PersonDiv = styled.div`
   width: 25%;
@@ -7,13 +8,18 @@ const PersonDiv = styled.div`
   border-radius: 5px;
   margin: 10px 0;
   
+  ul li {
+    text-align: left;
+  }
+  
 `;
 
 function PersonCard(props) {
   let person = props.person;
+  let colors = (props.colors ? (props.colors === 1 ? Palette.primary : Palette.secondary) : Palette.tertiary);
 
   return (
-      <PersonDiv>
+      <PersonDiv style={{'background-color': colors.mid, 'color': colors.shadow, 'border': `1px solid ${colors.dark}`}}>
         <h2>{person.name}</h2>
         <ul>
           <li>Height: {person.height}</li>

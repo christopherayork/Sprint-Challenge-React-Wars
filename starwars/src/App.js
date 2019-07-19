@@ -2,12 +2,22 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import PersonCard from './components/PersonCard.js';
 import styled from 'styled-components';
+import { Palette } from './Palette.js';
+
+const Header = styled.header`
+  margin: auto;
+  width: 100%;
+  background: ${Palette.primary.mid};
+  color: ${Palette.primary.shadow};
+  text-shadow: 1px 1px 5px #fff;
+  border-bottom:
+`;
 
 const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-around;
 `;
 const Placeholder = styled.div`
 
@@ -36,11 +46,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1 className="Header">React Wars</h1>
+      <Header>React Wars</Header>
       <Container>
         {(() => {
           if( content.hasOwnProperty('data') && content.data.hasOwnProperty('results') && Array.isArray(content.data.results)) {
-            return content.data.results.map(person => <PersonCard person={person}/>)
+            return content.data.results.map((person, index) => <PersonCard person={person} colors={index % 3}/>)
           }
           else return <Placeholder>Loading...</Placeholder>;
         })()}

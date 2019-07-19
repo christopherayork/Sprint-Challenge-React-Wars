@@ -7,10 +7,13 @@ import { Palette } from './Palette.js';
 const Header = styled.header`
   margin: auto;
   width: 100%;
-  background: ${Palette.primary.mid};
-  color: ${Palette.primary.shadow};
+  background: ${Palette.primary.light};
+  color: ${Palette.primary.dark};
   text-shadow: 1px 1px 5px #fff;
-  border-bottom:
+  border-bottom: 2px solid ${Palette.primary.full};
+  font-size: 3rem;
+  padding: 10px 0;
+  margin-bottom: 20px;
 `;
 
 const Container = styled.div`

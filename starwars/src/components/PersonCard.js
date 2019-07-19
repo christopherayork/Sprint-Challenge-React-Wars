@@ -8,6 +8,11 @@ const PersonDiv = styled.div`
   border-radius: 5px;
   margin: 10px 0;
   
+  h2 {
+  width: 100%;
+  padding-bottom: 5px;
+  }
+  
   ul li {
     text-align: left;
   }
@@ -19,8 +24,8 @@ function PersonCard(props) {
   let colors = (props.colors ? (props.colors === 1 ? Palette.primary : Palette.secondary) : Palette.tertiary);
 
   return (
-      <PersonDiv style={{'background-color': colors.mid, 'color': colors.shadow, 'border': `1px solid ${colors.dark}`}}>
-        <h2>{person.name}</h2>
+      <PersonDiv style={{'background-color': colors.light, 'color': colors.dark, 'border': `1px solid ${colors.full}`}}>
+        <h2 style={{'border-bottom': `1px solid ${colors.dark}`}}>{person.name}</h2>
         <ul>
           <li>Height: {person.height}</li>
           <li>Mass: {person.mass}</li>

@@ -1,5 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import PersonCard from './components/PersonCard.js';
+import styled from 'styled-components';
+import { Palette } from './Palette.js';
+
+const Header = styled.header`
+  margin: auto;
+  width: 100%;
+  background: ${Palette.primary.light};
+  color: ${Palette.primary.dark};
+  text-shadow: 1px 1px 5px #fff;
+  border-bottom: 2px solid ${Palette.primary.full};
+  font-size: 3rem;
+  padding: 10px 0;
+  margin-bottom: 20px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-around;
+`;
+const Placeholder = styled.div`
+
+`;
+
+const axios = require('axios');
+const defQuery = 'https://swapi.co/api/people/';
 
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
@@ -8,10 +36,28 @@ const App = () => {
   // Fetch characters from the star wars api in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
+  let [query, setQuery] = useState(defQuery);
+  let [content, setContent] = useState({});
+
+  useEffect(() => {
+    axios.get(query)
+        .then(res => {
+          setContent(res);
+        })
+        .catch(e => console.log(e));
+  }, [query]);
 
   return (
     <div className="App">
-      <h1 className="Header">React Wars</h1>
+      <Header>React Wars</Header>
+      <Container>
+        {(() => {
+          if( content.hasOwnProperty('data') && content.data.hasOwnProperty('results') && Array.isArray(content.data.results)) {
+            return content.data.results.map((person, index) => <PersonCard person={person} colors={index % 3}/>)
+          }
+          else return <Placeholder>Loading...</Placeholder>;
+        })()}
+      </Container>
     </div>
   );
 }
